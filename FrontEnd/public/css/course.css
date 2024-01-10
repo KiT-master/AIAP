@@ -1,0 +1,94 @@
+@import './constants.css';
+
+#viewCourseBtn {
+    text-decoration: none; 
+    color:white;
+}
+
+.course .banner {
+    background: bisque;
+    width: 100%;
+    height: 250px;   
+}
+
+.course .container {
+    /* margin-left: 10rem; */
+    /* margin-right: 10rem; */
+}
+
+.course .container .card {
+    border-radius: 0.375rem;
+    width: 100%;
+    min-height: 150px;
+    margin: 1rem;
+}
+
+
+
+.banner .container,
+.course.container,
+.banner {
+    /* outline: 1px solid; */
+}
+
+.course-info {
+    /* outline: 1px solid; */
+}
+
+.course-thumbnail {
+    background-color: black;
+    /* outline: 1px solid; */
+    width: 300px;
+    aspect-ratio: 16/9;
+}
+
+.course-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.course .profile-pic {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border: 1px solid;
+    border-radius: 50%;
+}
+
+.course .profile-pic>img {
+    width: 100%;
+    height: 100%;
+}
+
+.course .fa-star {
+    color: var(--jonquil);
+}
+
+.course .rating .fa-star{
+    line-height: 2rem;
+}
+
+
+.course .like-button-wrapper{
+    display: contents;
+}
+
+.course .likes-display{
+    font-size: 20px;
+}
+
+.course .like-button i {
+    opacity: 1;
+}
+
+.course .like-button.active {
+    color: #2196f3;
+}
+
+.course .like-button {
+    font-size: 20px;
+    color: #333;
+    border: none;
+    background-color: transparent;
+}

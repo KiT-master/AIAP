@@ -1,0 +1,279 @@
+.forum .threads-overflow {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 450px;
+}
+
+.forum .danger {
+    color: red;
+}
+
+.forum .forum-main {
+    min-height: 550px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+}
+
+.forum .thread-container {
+    max-height: 600px;
+    padding-bottom: 10px;
+}
+
+.forum .forum-create {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.forum .threads {
+    padding-bottom: 15px;
+    border-radius: 20px;
+    border: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+.forum .thread-wrapper {
+    padding-bottom: 15px;
+}
+
+.forum .thread-change {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.forum .delete-btn-wrapper {
+    padding-left: 5px;
+}
+
+.forum .delete-btn {
+    padding-left: 5px;
+    background: none;
+    border: 1.5px solid red;
+}
+
+.forum .edit-btn-wrapper {
+    padding-right: 5px;
+}
+
+.forum .edit-btn {
+    padding-right: 5px;
+}
+
+.forum .favourites-container {
+    flex-direction: column;
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 20%);
+    border-radius: 20px;
+    justify-content: flex-start;
+    max-height: 600px;
+    display: flex;
+    min-height: 550px;
+}
+
+/* .forum .favourites {
+    border: solid;
+    border-color: #555;
+    border-width: 2px;
+    justify-content: flex-start;
+    max-height: 600px;
+} */
+
+.forum .create-Thread {
+    min-height: 200px;
+    min-width: 400px;
+}
+
+.forum .entry-card {
+    background-color: white;
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 20%);
+    border-radius: 20px;
+    height: 600px;
+    width: 100%;
+    padding: 1.5rem 1rem;
+}
+
+.forum .forum-nav {
+    background-color: white;
+    border-radius: 20px;
+    border-width: 3px;
+    border: solid;
+    border-color: black;
+}
+
+.forum .favourites-heading {
+    padding-bottom: 10px;
+}
+
+.forum .favourites-overflow {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.forum .favourites-wrapper {
+    border: solid;
+    border-radius: 20px;
+    padding: 10px;
+    border-width: 1px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.forum .favourites-link {
+    color: black;
+}
+
+.forum .pic-like-favourites {
+    float: right;
+    display: flex;
+    padding: 15px;
+}
+
+.forum .like-favourites {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.forum .favourites {
+    font-size: 20px;
+    align-self: center;
+}
+
+.forum .fav-button {
+    border: none;
+    background-color: white;
+}
+
+.forum .fav-button.active {
+    color: red;
+}
+
+/* scrollbar edit */
+/* width */
+.forum ::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.forum ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 20px;
+}
+
+/* Handle */
+.forum ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 20px;
+}
+
+/* Handle on hover */
+.forum ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.forum .likes-display {
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    padding-left: 15px;
+}
+
+.forum .likes {
+    padding-left: 5px;
+    float: right;
+}
+
+/* Like bitton */
+.forum .like-button {
+    font-size: 50px;
+    color: #333;
+    text-decoration: none;
+    border: none;
+    background-color: white;
+}
+
+.forum .like-button.animated {
+    -webkit-animation: pop 0.9s both;
+    animation: pop 0.9s both;
+}
+
+.forum .like-button i {
+    opacity: 1;
+}
+
+.forum .like-button.active {
+    color: #2196f3;
+}
+
+@-webkit-keyframes pop {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    30% {
+        -webkit-transform: scale3d(1.25, 0.75, 1);
+        transform: scale3d(1.25, 0.75, 1);
+    }
+
+    40% {
+        -webkit-transform: scale3d(0.75, 1.25, 1);
+        transform: scale3d(0.75, 1.25, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.15, 0.85, 1);
+        transform: scale3d(1.15, 0.85, 1);
+    }
+
+    65% {
+        -webkit-transform: scale3d(0.95, 1.05, 1);
+        transform: scale3d(0.95, 1.05, 1);
+    }
+
+    75% {
+        -webkit-transform: scale3d(1.05, 0.95, 1);
+        transform: scale3d(1.05, 0.95, 1);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes pop {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    30% {
+        -webkit-transform: scale3d(1.25, 0.75, 1);
+        transform: scale3d(1.25, 0.75, 1);
+    }
+
+    40% {
+        -webkit-transform: scale3d(0.75, 1.25, 1);
+        transform: scale3d(0.75, 1.25, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.15, 0.85, 1);
+        transform: scale3d(1.15, 0.85, 1);
+    }
+
+    65% {
+        -webkit-transform: scale3d(0.95, 1.05, 1);
+        transform: scale3d(0.95, 1.05, 1);
+    }
+
+    75% {
+        -webkit-transform: scale3d(1.05, 0.95, 1);
+        transform: scale3d(1.05, 0.95, 1);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}

@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block title %}
+	Index
+{% endblock %}
+
+{% block main %}
+    
+	<div class="h3">Welcome to the index page!</div> <br>
+	You have successfully logged in as {{ user.username}} <br>
+	Your password is hashed as {{ user.password_hash}}
+{% endblock %}

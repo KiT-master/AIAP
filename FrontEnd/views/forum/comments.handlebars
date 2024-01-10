@@ -1,0 +1,89 @@
+<div class="forum container">
+    <div class="entry-container d-flex align-items-center justify-content-center flex-wrap">
+        <div class="entry-card">
+            <div class="container">
+                <div class="row">
+                    <div class="forum-info">
+                        <div class="col">
+                            <div class="topic-wrapper">
+                                {{forum.topic}}
+                            </div>
+                            <div class="picture-wrapper">
+                                {{#if forum.pictureURL}}
+                                <img src="{{forum.pictureURL}}" alt="Picture" class="img-thumbnail img-fluid mb-2"
+                                    onerror="this.src='/img/no-image.jpg'" style="max-height:160px">
+                                {{/if}}
+                            </div>
+                        </div>
+                        <!-- Use an element to toggle between a like/dislike icon -->
+                        <div class="like-button-wrapper col">
+                            <div class="likes-display">
+                                {{n_likes}}
+                            </div>
+                            <form action="/forum/like/{{forum.id}}" method="post">
+                                {{#unless likeStatus}}
+                                <button type="submit" class="like-button" id="like-button"><i
+                                        class="fas fa-thumbs-up"></i></button>
+                                <input id="forum_id" type="hidden" name="forum_id" value="{{forum.id}}">
+                                <input id="user_id" type="hidden" name="user_id" value="{{user.id}}">
+                                {{/unless}}
+                                {{#ifCond likeStatus.liked 1}}
+                                <button type="submit" class="like-button active" id="like-button"><i
+                                        class="fas fa-thumbs-up"></i></button>
+                                <input id="forum_id" type="hidden" name="forum_id" value="{{forum.id}}">
+                                <input id="user_id" type="hidden" name="user_id" value="{{user.id}}">
+                                {{/ifCond}}
+                                {{#ifCond likeStatus.liked 0}}
+                                <button type="submit" class="like-button" id="like-button"><i
+                                        class="fas fa-thumbs-up"></i></button>
+                                <input id="forum_id" type="hidden" name="forum_id" value="{{forum.id}}">
+                                <input id="user_id" type="hidden" name="user_id" value="{{user.id}}">
+                                {{/ifCond}}
+                            </form>
+                        </div>
+                    </div>
+                    <form action="/forum/comment" method="post">
+                        <div class="input-wrapper row align-items-center">
+                            <div class="comments-input col">
+                                <div class="form-group">
+                                    <input class="form-control border-0" id="comment" name="comment"
+                                        placeholder="Enter Comments Here" required>
+                                </div>
+                                <input id="forum_id" type="hidden" name="forum_id" value="{{forum.id}}">
+                            </div>
+                            <div class="enter-btn-wrapper col">
+                                <button type="submit" value="Create" class="btn btn-main"><i
+                                        class="fa-solid fa-arrow-right-to-bracket"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="comments-show-wrapper comments-overflow">
+                        {{#each forum.comments}}
+                        {{#ifCond this.userId ../user.id}}
+                        <div class="indv-comment own">
+                            <div class="username own">
+                                @{{lookup ../userdict this.userId}}
+                            </div>
+                            <div class="comment-text own">
+                                {{this.comment}}
+                            </div>
+                        </div>
+                        {{else}}
+                        <div class="indv-comment">
+                            <div class="username">
+                                @{{lookup ../userdict this.userId}}
+                            </div>
+                            <div class="comment-text">
+                                {{this.comment}}
+                            </div>
+                        </div>
+                        {{/ifCond}}
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/Forumlikes.js"></script>

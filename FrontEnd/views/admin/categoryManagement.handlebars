@@ -1,0 +1,168 @@
+<div class="container manage">
+    <div class="d-flex justify-content-between pb-4">
+        <h2 class="m-0">Category Management</h2>
+        <button type="button" class="btn btn-main" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                class="fa-solid fa-plus me-2"></i>New category</button>
+    </div>
+    {{>_flashmsg}}
+    <!-- Create new category modal -->
+    <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <form action="/admin/manageCategory/create" method="post" id="" class="entry-form">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Create new category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="desc" class="col-form-label">Description<span
+                                    class="text-danger">*</span></label>
+                            <textarea class="form-control" id="desc" name="desc" placeholder="Describe the category..."
+                                required></textarea>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-main">Create</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <table id="categories" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Destription</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#if user}}
+                {{#each categories}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{title}}</td>
+                    <td>{{description}}</td>
+                    <td>
+                        {{#if active}}
+                        <span class="text-success">Online</span>
+                        {{else}}
+                        <span class="text-danger">Offline</span>
+                        {{/if}}
+                    </td>
+                    <td>
+                        <div class="dropdown user-management">
+                            <button class="btn icon p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end text">
+                                <li><a class="dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#editCategory_{{id}}">Edit</a></li>
+                                {{#if active}}
+                                <li><a class="dropdown-item text-danger" data-bs-toggle="modal"
+                                        data-bs-target="#deactivateCategoryBackdrop_{{id}}">Deactivate</a></li>
+                                {{else}}
+                                <li><a class="dropdown-item text-success"
+                                        href="/admin/manageCategory/activate/{{id}}">Activate</a></li>
+                                {{/if}}
+                            </ul>
+                        </div>
+
+                        <!-- Edit Category Modal -->
+                        <div class="modal fade" id="editCategory_{{id}}" data-bs-backdrop="static"
+                            data-bs-keyboard="false" tabindex="-1" aria-labelledby="editBackdropLabel"
+                            aria-hidden="true">
+                            <form action="/admin/manageCategory/edit/{{id}}" method="post" id="" class="entry-form">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editBackdropLabel">Edit {{title}}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div class="mb-3">
+                                                <label for="title" class="form-label">Title<span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="title" name="title"
+                                                    value="{{title}}" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="desc" class="col-form-label">Description<span
+                                                        class="text-danger">*</span></label>
+                                                <textarea class="form-control" id="desc" name="desc"
+                                                    placeholder="Describe the category..."
+                                                    required>{{description}}</textarea>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline"
+                                                data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-main">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- De-activate Modal -->
+                        <form action="/admin/manageCategory/deactivate/{{id}}" method="POST">
+                            <div class="modal fade" id="deactivateCategoryBackdrop_{{id}}" data-bs-backdrop="static"
+                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="deactivateCategoryBackdropLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deactivateCategoryBackdropLabel">Deactivate
+                                                Category</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            <p>
+                                                Are you sure you want to <strong>deactivate {{title}}</strong>.
+                                            </p>
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline"
+                                                data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-danger">Deactivate</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}
+                {{/if}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#categories').DataTable();
+    });
+</script>

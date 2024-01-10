@@ -1,0 +1,126 @@
+<div class="container home">
+	<div class="featured-courses">
+		<h1 class="heading">Featured Courses</h1>
+		<div id="featuredCourses" class="carousel slide" data-bs-ride="true">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#featuredCourses" data-bs-slide-to="0" class="active"
+					aria-current="true" aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#featuredCourses" data-bs-slide-to="1"
+					aria-label="Slide 2"></button>
+				<button type="button" data-bs-target="#featuredCourses" data-bs-slide-to="2"
+					aria-label="Slide 3"></button>
+			</div>
+			<div class="carousel-inner mb-5">
+				<div class="carousel-item active">
+					<img src="/img/carousel/python_course_banner.jpg" class="d-block w-100" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="/img/carousel/grassland2.png" class="d-block w-100" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="/img/carousel/retrocity.gif" class="d-block w-100" alt="...">
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#featuredCourses" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#featuredCourses" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+	</div>
+
+	<h1 class="heading">Categories</h1>
+	<div class="cat d-flex flex-row mb-5">
+		<button id="scrollLeftCat" class="btn btn-arrow"><i class="fa-solid fa-angle-left"></i></button>
+		<div id="category" class="media-scroller snaps-inline">
+			{{!-- {{#each subjectList}}
+			<a href="/category/{{id}}" role="button" class="btn btn-cat">{{title}}</i></a>
+			{{/each}} --}}
+		</div>
+		<button id="scrollRightCat" class="btn btn-arrow"><i class="fa-solid fa-angle-right"></i></i></button>
+	</div>
+
+
+	<h1 class="heading">New Release</h1>
+	<div class="new d-flex flex-row mb-5">
+
+	</div> 
+
+	{{!-- {{#if user}}
+	<h1 class="heading">Recommended For You</h1>
+	<div class="recommendations d-flex flex-row mb-5">
+		{{#ifMore recommended.length 4 }}
+		<button id="scrollLeftRec" class="btn btn-arrow"><i class="fa-solid fa-angle-left"></i></button>
+		{{/ifMore}}
+		<div id="recommended" class="media-scroller snaps-inline">
+			{{#each recommended}}
+			<a class="card-link" href="/course/details/{{id}}">
+				<div class="card" style="width: 18rem;">
+					<img src="{{imgURL}}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title m-0">{{courseName}}</h5>
+						<p class="username text-primary">
+							@{{lookup ../userdict userId}}
+						</p>
+						<p class="tag subtext">
+							tag: <span><b></b> {{subjects.[0].title}}</span>
+						</p>
+					</div>
+				</div>
+			</a>
+			{{/each}}
+		</div>
+		{{#ifMore recommended.length 4 }}
+		<button id="scrollRightRec" class="btn btn-arrow"><i class="fa-solid fa-angle-right"></i></i></button>
+		{{/ifMore}}
+	</div>
+	{{/if}} --}}
+</div> 
+
+<script>
+	$('#scrollLeftCat').click(function () {
+		event.preventDefault();
+		$('#category').animate({
+			scrollLeft: "-=660px"
+		}, "medium");
+	});
+
+	$('#scrollRightCat').click(function () {
+		event.preventDefault();
+		$('#category').animate({
+			scrollLeft: "+=660px"
+		}, "medium");
+	});
+
+	$('#scrollLeftNew').click(function () {
+		event.preventDefault();
+		$('#newRelease').animate({
+			scrollLeft: "-=660px"
+		}, "slow");
+	});
+
+	$('#scrollRightNew').click(function () {
+		event.preventDefault();
+		$('#newRelease').animate({
+			scrollLeft: "+=660px"
+		}, "slow");
+	});
+
+	$('#scrollLeftRec').click(function () {
+		event.preventDefault();
+		$('#recommended').animate({
+			scrollLeft: "-=660px"
+		}, "slow");
+	});
+
+	$('#scrollRightRec').click(function () {
+		event.preventDefault();
+		$('#recommended').animate({
+			scrollLeft: "+=660px"
+		}, "slow");
+	});
+
+</script>

@@ -1,0 +1,524 @@
+<div class="course">
+    {{> _flashmsg }}
+    <div class="banner text d-flex align-items-center mt-3">
+        <div class="container d-flex justify-content-between">
+            <div class="course-info">
+                <!-- Use an element to toggle between a like/dislike icon -->
+                <h1>{{course.courseName}}</h1>
+                <p>By {{lookup userdict course.userId}}</p>
+                {{#if reviews}}
+                <p class="ratings">
+                    {{avg}}
+                    <span class="star">
+                        {{#each print_star}}
+                        <i class="fa-solid fa-star"></i>
+                        {{/each}}
+                    </span>
+                    <span class="user-count">
+                        ({{count}})
+                    </span>
+                </p>
+                {{else}}
+                <p>No Review</p>
+                {{/if}}
+                <div class="row">
+                    <!-- Use an element to toggle between a like/dislike icon -->
+                    <div class="like-button-wrapper">
+                        <form action="/like/{{course.id}}" method="post">
+                            {{#if likeStatus}}
+                            {{else}}
+                            <button type="submit" class="like-button" id="like-button"><i
+                                    class="fas fa-thumbs-up"></i></button>
+                            <input id="course_id" type="hidden" name="course_id" value="{{course.id}}">
+                            {{/if}}
+                            <input id="course_id" type="hidden" name="course_id" value="{{course.id}}">
+                            {{#ifCond likeStatus.liked 1}}
+                            <button type="submit" class="like-button active" id="like-button"><i
+                                    class="fas fa-thumbs-up"></i></button>
+                            <input id="course_id" type="hidden" name="course_id" value="{{course.id}}">
+                            {{/ifCond}}
+                            {{#ifCond likeStatus.liked 0}}
+                            <button type="submit" class="like-button" id="like-button"><i
+                                    class="fas fa-thumbs-up"></i></button>
+                            <input id="course_id" type="hidden" name="course_id" value="{{course.id}}">
+                            {{/ifCond}}
+                        </form>
+                        <div class="likes-display">
+                            {{n_likes}}
+                        </div>
+                    </div>
+                </div>
+                {{#if enrolled}}
+                <button class="btn btn-main"><a id="viewCourseBtn" href="/course/user/chapter/view/{{course.id}}">View
+                        Course</a></button>
+                {{else}}
+                <form action="/Course/Enroll/{{course.id}}" method="post">
+                    <button type="submit" class="btn btn-main">Enroll Now
+                </form>
+                {{/if}}
+            </div>
+            <div class="course-thumbnail">
+                <img src="{{course.imgURL}}" alt="">
+            </div>
+
+        </div>
+    </div>
+    <div class="container d-flex flex-column align-items-center">
+        <div class="card course-content">
+            <b class="ps-3 pt-1">Course Content</b>
+            <p class="ps-3 pt-1">{{course.content}}</p>
+        </div>
+        <div class="card course-description">
+            <b class="ps-3 pt-1">Description</b>
+            <p class="ps-3 pt-1">{{course.description}}</p>
+        </div>
+        <div class="card course-review">
+            <b class="ps-3 pt-1">Rating and Review</b>
+            <div class="container">
+                {{#if user}}
+                <div class="button-wrapper float-end pb-3">
+                    <button class="btn btn-main create-button" data-bs-toggle="modal" data-bs-target="#createThread">
+                        Create A Review
+                    </button>
+                </div>
+
+                {{/if}}
+                {{#if reviews}}
+                {{#each reviews}}
+                {{!-- to make sure that only pull the current course review --}}
+                {{#if (equalsTo CourseId ../course.id)}}
+                <div class="card mx-auto">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex mb-3">
+                                <div class="d-flex align-items-center pe-3">
+                                    <a href="/user/profile/{{user.id}}" class="profile-pic">
+                                        <img src="/img/user.svg" alt="logo">
+                                    </a>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0">{{lookup ../fullname userId}}</h5>
+                                    @{{lookup ../userdict userId}}
+                                    </a>
+                                </div>
+                            </div>
+                            {{#if ../user}}
+                            {{#if (equalsTo userId ../user.id)}}
+                            <div class="dropdown user-management">
+
+                                <button class="btn icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end text">
+                                    <li>
+                                        <a class="dropdown-item" data-bs-toggle="modal"
+                                            data-bs-target="#editReview_{{id}}">
+                                            Edit Review
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-danger" data-bs-toggle="modal"
+                                            data-bs-target="#deleteReview_{{id}}">
+                                            Delete Review
+                                        </a>
+                                    </li>
+                                    {{!-- {{#if reply}}
+                                    <li>
+                                        <a class="dropdown-item card-link" data-bs-toggle="modal"
+                                            data-bs-target="#editReply_{{id}}">
+                                            Edit Reply
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item card-link" data-bs-toggle="modal"
+                                            data-bs-target="#deleteReply_{{id}}">
+                                            Delete Reply
+                                        </a>
+                                    </li>
+                                    {{else}}
+                                    <li>
+                                        <a class="dropdown-item card-link" data-bs-toggle="modal"
+                                            data-bs-target="#createReply_{{id}}">
+                                            Reply
+                                        </a>
+                                    </li>
+                                    {{/if}} --}}
+                                </ul>
+                            </div>
+                            {{else}}
+                            <div class="dropdown user-management">
+                                <button class="btn icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end text">
+                                    {{#if (equalsTo ../user.id ../course.userId)}}
+                                    {{#if reply}}
+                                    <li>
+                                        <a class="dropdown-item" data-bs-toggle="modal"
+                                            data-bs-target="#editReply_{{id}}">
+                                            Edit Reply
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-danger" data-bs-toggle="modal"
+                                            data-bs-target="#deleteReply_{{id}}">
+                                            Delete Reply
+                                        </a>
+                                    </li>
+                                    {{else}}
+                                    <li>
+                                        <a class="dropdown-item" data-bs-toggle="modal"
+                                            data-bs-target="#createReply_{{id}}">
+                                            Reply
+                                        </a>
+                                    </li>
+                                    {{/if}}
+                                    {{/if}}
+                                    <li>
+                                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#report_{{id}}">
+                                            Report
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            {{/if}}
+                            {{/if}}
+                        </div>
+                        <div class="rating d-flex">
+                            <h3 class="pe-1">{{rating}}.0</h3>
+                            {{log rating}}
+
+                            <div id="star">
+                                {{star rating}}
+                                {{#each rating}}
+                                <i class="fa-solid fa-star">
+                                    {{/each}}
+                            </div>
+
+                        </div>
+                        {{#if review.length}}
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-10">
+                                <p>{{review}}</p>
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+                    {{#if reply}}
+                    <div class="accordion" id="storyAccordion">
+                        <div class="card-header" id="headingOne">
+                            <button class="btn btn-link" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne{{id}}" aria-expanded="false"
+                                aria-controls="collapseOne{{id}}" style="text-decoration: none;">
+                                Reply <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div id="collapseOne{{id}}" class="collapse" aria-labelledby="headingOne"
+                            data-bs-parent="#storyAccordion">
+                            <div class="card-body">
+                                {{reply}}
+                            </div>
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+                {{/if}}
+                <!-- Edit Review Modal -->
+                <div class="modal" id="editReview_{{id}}" data-bs-backdrop="static" data-bs-keyboard="false">
+                    <form action="/editReview/{{id}}" method="post" id="reviewform_edit_review">
+                        <div class="modal-dialog modal-dialog-centered" id="myModal">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <i class="fas fa-comments"></i>
+                                    <h4 class="modal-title">Edit Review</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label class="font-italic">Rating</label>
+                                        <br>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" id="5" value="5" name="rating"
+                                                {{radioCheck rating "5" }}>
+                                            <label class="form-check-label" for="5">5⭐</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" id="4" value="4" name="rating"
+                                                {{radioCheck rating "4" }}>
+                                            <label class="form-check-label" for="4">4⭐</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" id="3" value="3" name="rating"
+                                                {{radioCheck rating "3" }}>
+                                            <label class="form-check-label" for="3">3⭐</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" id="2" value="2" name="rating"
+                                                {{radioCheck rating "2" }}>
+                                            <label class="form-check-label" for="2">2⭐</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" id="1" value="1" name="rating"
+                                                {{radioCheck review "1" }}>
+                                            <label class="form-check-label" for="1">1⭐</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <div class="form-group">
+                                            <label class="font-italic" for="review">Review</label>
+                                            <textarea class="form-control" id="edit_review" name="review" rows="7"
+                                                maxlength="2000">{{review}}</textarea>
+                                            <small id="errorvalid_edit_review" style="display:none;">*Review cannot be
+                                                empty</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" value="Update" class="btn btn-primary"
+                                        onclick="check_edit_review()">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Delete Review Modal -->
+                <div class="modal" id="deleteReview_{{id}}">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <i class="fas fa-comments"></i>
+                                <h4 class="modal-title">Delete Review</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">Are you sure you want to delete the review?</div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <a href="/deleteReview/{{id}}" class="btn btn-primary">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create Reply Modal -->
+                <div class="modal" id="createReply_{{id}}">
+                    <form action="/createReply/{{id}}" method="post">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <i class="fas fa-comments"></i>
+                                    <h4 class="modal-title">Reply</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <div class="form-group mb-4">
+                                        <div class="form-group">
+                                            <label class="font-italic" for="review">Reply</label>
+                                            <textarea class="form-control" id="review" name="review" rows="7"
+                                                maxlength="2000"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" value="Update" class="btn btn-primary">Reply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Create Reply Modal -->
+                <div class="modal" id="editReply_{{id}}">
+                    <form action="/editReply/{{id}}" method="post">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <i class="fas fa-comments"></i>
+                                    <h4 class="modal-title">Reply</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <div class="form-group mb-4">
+                                        <div class="form-group">
+                                            <label class="font-italic" for="review">Reply</label>
+                                            <textarea class="form-control" id="review" name="review" rows="7"
+                                                maxlength="2000">{{reply}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" value="Update" class="btn btn-primary">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Delete Reply Modal -->
+                <div class="modal" id="deleteReply_{{id}}">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <i class="fas fa-comments"></i>
+                                <h4 class="modal-title">Delete Reply</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">Are you sure you want to delete the reply?</div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <a href="/deleteReply/{{id}}" class="btn btn-primary">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report Modal -->
+                <div class="modal" id="report_{{id}}">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <i class="fas fa-comments"></i>
+                                <h4 class="modal-title">Report</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">Are you sure you want to report this review?</div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <a href="/report/{{id}}" class="btn btn-primary">Report</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                {{else}}
+                <p>No Reviews</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Review Modal -->
+<div class="modal" id="createThread" data-bs-backdrop="static" data-bs-keyboard="false">
+    <form action="/createReview" method="post" id="reviewform_create_review">
+        <div class="modal-dialog modal-dialog-centered" id="myModal">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <i class="fas fa-comments"></i>
+                    <h4 class="modal-title">Write A Review</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="topic">Rating</label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="5" value="5" name="rating" checked>
+
+                            <label class="form-check-label" for="5">5⭐</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="4" value="4" name="rating">
+                            <label class="form-check-label" for="4">4⭐</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="3" value="3" name="rating">
+                            <label class="form-check-label" for="3">3⭐</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="2" value="2" name="rating">
+                            <label class="form-check-label" for="2">2⭐</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="1" value="1" name="rating">
+                            <label class="form-check-label" for="1">1⭐</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <div class="form-group">
+                            <label class="font-italic" for="review">Review</label>
+                            <textarea class="form-control" id="create_review" name="review" rows="7"
+                                maxlength="2000"></textarea>
+                            <small id="errorvalid_create_review" style="display:none;">*Review cannot be empty</small>
+                        </div>
+                    </div>
+                    <!-- To allow courseid to be stored insdie the body-->
+                    <input id="courseId" name="courseId" type="hidden" value="{{course.id}}"></input>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" value="Create" class="btn btn-primary"
+                        onclick="check_create_review()">Create</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+
+    $('[data-toggle=confirmation]').confirmation({
+        rootSelector: '[data-toggle=confirmation]',
+    });
+    function check_create_review() {
+
+        document.getElementById("errorvalid_create_review").style.display = "none"
+        if (document.getElementById("create_review").value.length == 0) {
+            document.getElementById("errorvalid_create_review").style.display = "block"
+            console.log("made")
+        }
+        else {
+            document.getElementById("reviewform_create_review").submit();
+        }
+    }
+    function check_edit_review() {
+
+        document.getElementById("errorvalid_edit_review").style.display = "none"
+        if (document.getElementById("edit_review").value.length == 0) {
+            document.getElementById("errorvalid_edit_review").style.display = "block"
+            console.log("made")
+        }
+        else {
+            document.getElementById("reviewform_edit_review").submit();
+        }
+    }
+</script>

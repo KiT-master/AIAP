@@ -1,0 +1,37 @@
+<div class="container category">
+	<h1 class="heading">{{subject.title}}</h1>
+	<em>{{subject.description}}</em>
+	<div class="d-flex flex-row">
+		{{#each courses}}
+		<a class="card-link me-4" href="/course/details/{{id}}">
+			<div class="card" style="width: 18rem;">
+				<img src="/img/carousel/grassland.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title m-0">{{courseName}}</h5>
+					<p class="username">
+						@{{lookup ../userdict userId}}
+					</p>
+					{{!-- <p class="ratings">
+						5.0
+						<span class="star">
+							<i class="fa-solid fa-star"></i>
+							<i class="fa-solid fa-star"></i>
+							<i class="fa-solid fa-star"></i>
+							<i class="fa-solid fa-star"></i>
+							<i class="fa-solid fa-star"></i>
+						</span>
+						<span class="user-count">
+							(100)
+						</span>
+					</p> --}}
+					<p class="tag subtext">
+						tag: <span><b></b> {{subjects.[0].title}}</span>
+					</p>
+					{{!-- <a href="#" class="btn btn-primary">Go somewhere</a> --}}
+				</div>
+			</div>
+		</a>
+		{{/each}}
+
+	</div>
+</div>

@@ -1,0 +1,35 @@
+<nav class="header navbar sticky-top shadow-sm bg-white mb-3 px-0">
+	<button class="menu-icon-btn" data-menu-icon-btn>
+		<div class="menu-icon">
+			<i class="fa-solid fa-bars"></i>
+		</div>
+	</button>
+	<div class="container">
+		<a class="logo" href="/">
+			<span>Curodemy</span>
+		</a>
+		<div class="search-container">
+			<form action="" onsubmit="return false" class="d-flex flex-row align-items-center" role="search">
+				<input class="px-3" type="search" placeholder="Search" aria-label="Search">
+				<button class="search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+			</form>
+		</div>
+		<div class="button-group">
+			{{#if user}}
+			<div class="profile-menu">
+				<div class="user-text pe-2">Hi, {{user.fname}}!</div>
+				<a href="/user/profile/{{user.id}}" class="profile-pic d-inline-block">
+					{{#if user.profilePicURL}}
+					<img src="{{user.profilePicURL}}" class="user-profile-pic" alt="profile-pic">
+					{{else}}
+					<div class="default-profile-pic">{{firstChar user.fname}}{{firstChar user.lname}}</div>
+					{{/if}}
+				</a>
+			</div>
+			{{else}}
+			<a href="/user/login" class="btn btn-main login-btn" role="button">Log in</a>
+			<a href="/user/signup" class="btn btn-main signup-btn" role="button">Sign up</a>
+			{{/if}}
+		</div>
+	</div>
+</nav>
