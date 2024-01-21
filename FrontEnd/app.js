@@ -96,10 +96,11 @@ app.use(function (req, res, next) {
 
 // mainRoute is declared to point to routes/main.js
 const mainRoute = require('./routes/main');
-
+const dairyRoute = require('./routes/dairy');
 
 // Any URL with the pattern ‘/*’ is directed to routes/main.js
 app.use('/', mainRoute);
+app.use('/dairy', dairyRoute);
 
 
 // The 404 Route
@@ -128,64 +129,3 @@ app.listen(port, () => {
 // 		['johnsmith123@curodemy.com', 1, 'johnsmith23', '$2a$10$MSYP/5u38iPwbk9gqyeuAeoN7cDzQwy32x9paLMu13l1fiewJ5hhS', 'John', 'Smith', '', null, '', null, null, null, 1]
 // 	];
 
-// async function setupAcc(userList) {
-
-// 	let user = await User.create({
-// 		email: userList[0],
-// 		verified: userList[1],
-// 		username: userList[2],
-// 		password: userList[3],
-// 		fname: userList[4],
-// 		lname: userList[5],
-// 		gender: userList[6],
-// 		birthday: userList[7],
-// 		country: userList[8],
-// 		interest: userList[9],
-// 		status: userList[10],
-// 		profilePicURL: userList[11],
-// 		active: userList[12]
-// 	});
-
-// 	if (userList[2] == "n1cholas.ong") {
-// 		var course = await Courses.create({
-// 			courseName: "Python", description: "Learn Python with us!!!", content: "Learn Python with us!!!", userId: user.id
-// 		})
-
-// 		var chapter = await Chapter.create({
-// 			ChapterNum: 1,
-// 			CourseId: course.id
-// 		})
-
-// 		await Review.create(
-// 			{ review: "Python is good", rating: 5, userId: user.id, CourseId: course.id, report: 0 }
-// 		)
-
-// 		await Quiz.create({
-// 			question: "What is python?", description: "", a1: "It is an programing laung", a2: "The Snake DUH", a3: "Anaconda?", a4: "Anaconda?", correctans: "It is an programing laung", ChapterId: chapter.id
-// 		})
-
-// 		await Forum.create({
-// 			topic: "This is created by Nic", description: "Test data for my threads", status: 1, likes: 0, userId: user.id
-// 		})
-
-// 	}
-// 	return user
-// }
-
-// // // Manual Creation
-// if (!resetDB) {
-// 	User.findByPk(1).then((user) => {
-// 		if (user == null) {
-// 			adminAcc.forEach(async (acc) => {
-// 				try {
-// 					//console.log(acc)
-// 					await setupAcc(acc)
-// 					//console.log(user)
-
-// 				} catch (err) {
-// 					console.log(err)
-// 				}
-// 			})
-// 		}
-// 	})
-// }
