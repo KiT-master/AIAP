@@ -1,11 +1,43 @@
-<div class="container home">
-	<form method="post" name="dairyForm" id="dairyForm" enctype="application/json" >
-		<textarea name="Message" id="" rows="20" cols="100"> </textarea>
-		<br>
-		<input type="submit"  value="Submit">
-	</form>
-</div> 
+<link rel="stylesheet" href="/css/diary/diary.css">
+<div class="row">
+	<div class="list-group diary-sidebar col">
+	<a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+		<div class="d-flex w-100 justify-content-between">
+		<h5 class="mb-1">List group item heading</h5>
+		<small>3 days ago</small>
+		</div>
+		<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+		<small>Donec id elit non mi porta.</small>
+	</a>
+	<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+		<div class="d-flex w-100 justify-content-between">
+		<h5 class="mb-1">List group item heading</h5>
+		<small class="text-muted">3 days ago</small>
+		</div>
+		<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+		<small class="text-muted">Donec id elit non mi porta.</small>
+	</a>
+	<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+		<div class="d-flex w-100 justify-content-between">
+		<h5 class="mb-1">List group item heading</h5>
+		<small class="text-muted">3 days ago</small>
+		</div>
+		<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+		<small class="text-muted">Donec id elit non mi porta.</small>
+	</a>
+	</div>
 
+
+	<div class="container home col">
+		<form method="post" name="dairyForm" id="dairyForm" enctype="application/json" class="form-group">
+			<textarea name="Message" class="MessageBox"> </textarea>
+			<br>
+			<input type="submit"  value="Create" class="btn btn-main">
+		</form>
+	</div> 
+
+
+</div>
 <script>
 
 </script>
