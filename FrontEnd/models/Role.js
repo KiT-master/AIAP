@@ -18,5 +18,4 @@ const Role = db.define('role',
 
 );
 
-
 module.exports = Role

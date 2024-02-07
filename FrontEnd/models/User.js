@@ -22,10 +22,10 @@ const User = db.define('user', {
     freezeTableName: true
 });
 
-User.sync();
-Role.sync();
+// User.sync();
+// Role.sync();
 
-roleTypes = ["ADMIN", "STUDENT", "TUTOR"];
+roleTypes = ["ADMIN", "STUDENT", "PATIENT"];
 
 Role.findAndCountAll()
     .then(result => {
@@ -90,31 +90,31 @@ function generateUser() {
     }
 }
 
-User.findAndCountAll()
-    .then(async result => {
-        if (result.count < 1) {
-            adminAcc.forEach((value) => {
-                User.create({
-                    email: value[0],
-                    verified: value[1],
-                    username: value[2],
-                    password: value[3],
-                    fname: value[4],
-                    lname: value[5],
-                    gender: value[6],
-                    birthday: value[7],
-                    country: value[8],
-                    interest: value[9],
-                    status: value[10],
-                    profilePicURL: value[11],
-                    active: 1,
-                    roleId: value[12],
-                })
-            });
-            generateUser();
-            console.log("\nGenerate user complete")
-        };
-    });
+// User.findAndCountAll()
+//     .then(async result => {
+//         if (result.count < 1) {
+//             adminAcc.forEach((value) => {
+//                 User.create({
+//                     email: value[0],
+//                     verified: value[1],
+//                     username: value[2],
+//                     password: value[3],
+//                     fname: value[4],
+//                     lname: value[5],
+//                     gender: value[6],
+//                     birthday: value[7],
+//                     country: value[8],
+//                     interest: value[9],
+//                     status: value[10],
+//                     profilePicURL: value[11],
+//                     active: 1,
+//                     roleId: value[12],
+//                 })
+//             });
+//             generateUser();
+//             console.log("\nGenerate user complete")
+//         };
+//     });
 
 
 module.exports = User

@@ -8,7 +8,7 @@ const path = require('path');
 require('dotenv').config();
 const helpers = require('./helpers/handlebars');
 
-const resetDB = true; // DB RESET SWITCH
+const resetDB = false; // DB RESET SWITCH
 
 const app = express();
 // Handlebars Middleware
@@ -38,22 +38,22 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Library to use MySQL to store session objects
-// const MySQLStore = require('express-mysql-session');
-// var options = {
-// 	host: process.env.DB_HOST,
-// 	port: process.env.DB_PORT,
-// 	user: process.env.DB_USER,
-// 	password: process.env.DB_PWD,
-// 	database: process.env.DB_NAME,
-// 	clearExpired: true,
-// 	// The maximum age of a valid session; milliseconds:
-// 	expiration: 3600000, // 1 hour = 60x60x1000 milliseconds 
-// 	// How frequently expired sessions will be cleared; milliseconds: 
-// 	checkExpirationInterval: 1800000 // 30 min 
-// };
+const MySQLStore = require('express-mysql-session');
+var options = {
+	host: process.env.DB_HOST,
+	port: process.env.DB_PORT,
+	user: process.env.DB_USER,
+	password: process.env.DB_PWD,
+	database: process.env.DB_NAME,
+	clearExpired: true,
+	// The maximum age of a valid session; milliseconds:
+	expiration: 3600000, // 1 hour = 60x60x1000 milliseconds 
+	// How frequently expired sessions will be cleared; milliseconds: 
+	checkExpirationInterval: 1800000 // 30 min 
+};
 
-// const DBConnection = require('./config/DBConnection');
-// DBConnection.setUpDB(resetDB) // To set up database with new tables
+const DBConnection = require('./config/DBConnection');
+DBConnection.setUpDB(resetDB) // To set up database with new tables
 
 
 // Enables session to be stored using browser's Cookie ID
@@ -76,8 +76,8 @@ app.use(flashMessenger.middleware);
 
 // Passport Config
 const passport = require('passport');
-// const passportConfig = require('./config/passportConfig');
-// passportConfig.localStrategy(passport);
+const passportConfig = require('./config/passportConfig');
+passportConfig.localStrategy(passport);
 
 // Initilize Passport middleware
 app.use(passport.initialize());
@@ -97,11 +97,12 @@ app.use(function (req, res, next) {
 // mainRoute is declared to point to routes/main.js
 const mainRoute = require('./routes/main');
 const dairyRoute = require('./routes/dairy');
+const userRoute = require('./routes/user');
 
 // Any URL with the pattern ‘/*’ is directed to routes/main.js
 app.use('/', mainRoute);
 app.use('/dairy', dairyRoute);
-
+app.use('/user', userRoute);
 
 // The 404 Route
 app.use(function (req, res, next) {

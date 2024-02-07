@@ -1,10 +1,15 @@
 .diary-sidebar 
 {
     width: 145px;
+    background-color: beige;
 }
 
 .MessageBox
 {
     width: 500px;
-    height: 500px;
+    height: 300px;
+}
+
+.row-diary{
+    margin-left: 64px !important;
 }
