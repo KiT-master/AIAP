@@ -221,7 +221,7 @@ router.get('/logout', (req, res, next) => {
 router.get('/profile/:id', ensureAuthenticated, authUser, authActive, async (req, res) => {
     let title = "My Profile";
     let country = countryList.getData();
-    let user = await User.findByPk(req.params.id, { include: Role });
+    let user = await User.findByPk(req.params.id, { include: Role,raw : true , nest : true });
     res.render('./user/profile', { title, country, user });
 });
 
