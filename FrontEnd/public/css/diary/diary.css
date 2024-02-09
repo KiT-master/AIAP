@@ -13,3 +13,7 @@
 .row-diary{
     margin-left: 64px !important;
 }
+.square {
+    border: 1px solid;
+    border-color: white;
+}
