@@ -4,10 +4,10 @@
 
 	<div class="container home col">
 		<form method="post" name="dairyForm" id="dairyForm" enctype="application/json" class="form-group">
-			<h3>Date:</h3>
-		 	<input type="text" class="form-control" name="title" id="title" placeholder="Title" required>
+			<h3>Date:{{diary.DiaryDate}}</h3>
+		 	<input type="text" class="form-control" name="title" id="title" placeholder="Title" value="{{diary.DiaryTitle}}" readonly required>
 			<input name="uid" type="hidden" value="{{user.id}}">
-			<textarea name="Message" class="MessageBox form-control"> </textarea>
+			<textarea name="Message" class="MessageBox form-control" readonly>{{diary.DiaryContent}} </textarea>
 			<br>
 			<input type="submit"  value="Create" class="btn btn-main">
 		</form>
@@ -16,7 +16,7 @@
 		<div class="list-group diary-sidebar col pl-10">
 		<h3>Events:</h3>
 		{{#each diaries}}
-			<a href="/dairy/view/{{../user.id}}/{{id}}" class="list-group-item list-group-item-action flex-column align-items-start py-0">
+			<a href="#" class="list-group-item list-group-item-action flex-column align-items-start py-0">
 				<div class="row">
 					<div class="d-flex col col-2 border border-black px-0">
 					<p class="mb-1 text-justify text-center">{{DiaryDate}}</p>

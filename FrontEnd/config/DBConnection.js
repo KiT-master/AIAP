@@ -1,6 +1,7 @@
 const mySQLDB = require('./DBConfig');
 const Role = require('../models/Role')
 const User = require('../models/User');
+const Diary = require('../models/diary')
 // const Review = require('../models/Review');
 // const Forum = require('../models/Forum');
 // const Course = require('../models/Courses');
@@ -81,6 +82,7 @@ const setUpDB = (drop) => {
             /* Defines the relationship where a user has many videos. The primary key from user will be a foreign key in video. */
             //Declaring the parent realtionship
             Role.hasOne(User);
+            User.hasMany(Diary);
             // User.hasMany(Forum);
             // User.hasMany(Review);
             // User.hasMany(Courselike);
@@ -107,6 +109,7 @@ const setUpDB = (drop) => {
             // //Decalring the child realtionship
             // Courselike.belongsTo(User);
             // Courselike.belongsTo(Course);
+            Diary.belongsTo(User)
             User.belongsTo(Role);
             // User.belongsToMany(Course, { through: 'UserCourses' });
             // Comment.belongsTo(Forum);
