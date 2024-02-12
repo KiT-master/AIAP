@@ -24,10 +24,11 @@ function diaryConvert(diaries){
 
 router.get('/write/:uid', async function (req, res,) {
     let diaries = await Diary.findAll({ raw: true, where: { userId: req.params.uid } })
+    let currentDate = date.getDate() + " " + months[date.getMonth()] + " "+date.getFullYear();
 
     diaries = diaryConvert(diaries)
 
-    res.render('./dairy/dairy', {diaries});
+    res.render('./dairy/dairy', {currentDate,diaries});
 })
 
 

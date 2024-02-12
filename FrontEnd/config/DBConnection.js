@@ -18,7 +18,7 @@ const Diary = require('../models/diary')
 
 
 //Generate users
-roleTypes = ["ADMIN", "STUDENT", "PATIENT"];
+roleTypes = ["ADMIN", "CARETAKER", "PATIENT"];
 
 let adminAcc =
     [

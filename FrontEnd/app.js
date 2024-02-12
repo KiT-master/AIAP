@@ -98,11 +98,13 @@ app.use(function (req, res, next) {
 const mainRoute = require('./routes/main');
 const dairyRoute = require('./routes/dairy');
 const userRoute = require('./routes/user');
+const patientManagmentRoute = require('./routes/patitensMangement');
 
 // Any URL with the pattern ‘/*’ is directed to routes/main.js
 app.use('/', mainRoute);
 app.use('/dairy', dairyRoute);
 app.use('/user', userRoute);
+app.use('/patients', patientManagmentRoute);
 
 // The 404 Route
 app.use(function (req, res, next) {
