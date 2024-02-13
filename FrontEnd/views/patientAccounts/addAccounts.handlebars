@@ -1,0 +1,30 @@
+<div class="container">
+  <h1 class="display-4">Add patient</h1>
+
+
+  <form method="POST" action="">
+    <div class="form-group">
+      <label for="name">Patient Email<span class="text-danger">*</span></label>
+      <input type="text" name="Email" id="Email" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="desc">Username<span class="text-danger">*</span></label>
+      <input type="text" name="Username" id="Username" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="expiryDate">Password<span class="text-danger">*</span></label>
+      <input type="password" name="Password" id="Password" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="expiryDate">First Name<span class="text-danger">*</span></label>
+      <input type="text" name="Fname" id="Fname" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="expiryDate">Last Name<span class="text-danger">*</span></label>
+      <input type="text" name="Lname" id="Lname" class="form-control" required>
+    </div>
+    <input name="uid" type="hidden" value="{{user.id}}">
+    <input type="submit" value="Submit" class="btn btn-main mt-3" />
+
+  </form>
+</div>

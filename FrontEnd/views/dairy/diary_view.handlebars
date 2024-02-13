@@ -4,7 +4,7 @@
 
 	<div class="container home col">
 		<form method="post" name="dairyForm" id="dairyForm" enctype="application/json" class="form-group">
-			<h3>Date:{{diary.DiaryDate}}</h3>
+			<h3>Date: {{diary.DiaryDate}}</h3>
 		 	<input type="text" class="form-control" name="title" id="title" placeholder="Title" value="{{diary.DiaryTitle}}" readonly required>
 			<input name="uid" type="hidden" value="{{user.id}}">
 			<textarea name="Message" class="MessageBox form-control" readonly>{{diary.DiaryContent}} </textarea>

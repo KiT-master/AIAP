@@ -18,7 +18,7 @@ const Diary = require('../models/diary')
 
 
 //Generate users
-roleTypes = ["ADMIN", "STUDENT", "PATIENT"];
+roleTypes = ["ADMIN", "CARETAKER", "PATIENT"];
 
 let adminAcc =
     [
@@ -30,7 +30,7 @@ let adminAcc =
     ];
 
 
-function generateUser() {
+async function generateUser() {
     for (let i = 0; i < 50; i++) {
         let randomBit = Math.floor(Math.random() * 2);
         let randomInt1 = Math.floor(Math.random() * 10);
@@ -69,6 +69,37 @@ function generateUser() {
         //     console.log("similar user found")
         // }
     }
+}
+
+async function generateDiaires(days){
+
+    let dayCount =  Math.floor(days/3)
+    let currentDate = 1
+
+    for (var i=1; i<=dayCount; i++){
+        Diary.create({
+            DiaryTitle: 'Today is good',
+            DiaryContent: 'Today is good day!',
+            DiarySentiment: 'postive',
+            DiaryDate: '01-'+currentDate+'-2024',
+            userId: 5
+        })
+        currentDate ++;
+    }
+
+    for (var i=1; i<=dayCount; i++){
+        Diary.create({
+            DiaryTitle: 'Today is bad',
+            DiaryContent: 'Today is bad day!',
+            DiarySentiment: 'negative',
+            DiaryDate: '01-'+currentDate+'-2024',
+            userId: 5
+        })
+        currentDate ++;
+    }
+
+
+
 }
 
 
@@ -125,9 +156,9 @@ const setUpDB = (drop) => {
             await mySQLDB.sync({
                 force: drop
             });
-        }).then(() => {
+        }).then(async () => {
 
-            Role.findAndCountAll()
+           await Role.findAndCountAll()
             .then(result => {
                 if (result.count < 1) {
                     roleTypes.forEach((role, index) => {
@@ -141,7 +172,7 @@ const setUpDB = (drop) => {
 
 
 
-            User.findAndCountAll()
+            await User.findAndCountAll()
             .then(async result => {
                 if (result.count < 1) {
                     adminAcc.forEach((value) => {
@@ -162,7 +193,8 @@ const setUpDB = (drop) => {
                             roleId: value[12],
                         })
                     });
-            generateUser();
+            await generateUser();
+            //await generateDiaires(31)
             console.log("\nGenerate user complete")
         };
     });

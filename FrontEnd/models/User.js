@@ -17,7 +17,8 @@ const User = db.define('user', {
     status: { type: sequelize.STRING(300) },
     profilePicURL: { type: sequelize.STRING },
     active: { type: sequelize.TINYINT(1), allowNull: false },
-    logonAt: { type: sequelize.DATE }
+    logonAt: { type: sequelize.DATE },
+    CreatedBy: {type: sequelize.INTEGER}
 },{
     freezeTableName: true
 });
