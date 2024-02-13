@@ -1,0 +1,37 @@
+<div class="container admin">
+	<form method="post" action="" class="entry-form">
+		<div class="entry-container">
+			<div class="entry-card row">
+				<div class="entry-box col">
+					<h2 class="card-title">ADD PATIENT</h2>
+					<div id="input-row-1">
+						<div class="form-group">
+							<label for="fname">First Name<span class="text-danger">*</span></label>
+							<input type="text" name="fname" id="fname" class="form-control" maxlength="50" value="{{fname}}"
+								required>
+						</div>
+						<div class="form-group">
+							<label for="lname">Last Name<span class="text-danger">*</span></label>
+							<input type="text" name="lname" id="lname" class="form-control" maxlength="50" value="{{lname}}"
+								required>
+						</div>
+					</div>
+					<div id="input-row-3">
+						<div class="form-group">
+							<label for="gender">Gender</label>
+							<select name="gender" id="gender" class="form-select">
+								<option value=""></option>
+								<option value="M">Male</option>
+								<option value="F">Female</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="birthday">Birthday</label>
+							<input type="date" name="birthday" id="birthday" class="form-control">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

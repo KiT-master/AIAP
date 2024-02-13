@@ -1,0 +1,22 @@
+<div class="admin container">
+    <div class="entry-card">
+            <video id="webcam" autoplay></video>
+        <button id="captureButton">Capture Image</button>
+        <canvas id="canvas" style="display: none;"></canvas>
+    </div>
+</div>
+
+
+<script>
+    const video = document.getElementById('webcam');
+
+    // Access the user camera and video
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+            video.srcObject = stream;
+        })
+        .catch((error) => {
+            console.error('Error accessing webcam:', error);
+        });
+</script>
+<script src="medication.js"></script>
