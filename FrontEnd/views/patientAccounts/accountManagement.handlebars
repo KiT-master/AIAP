@@ -55,10 +55,11 @@
                                 <li><a class="dropdown-item" href="/admin/viewAccount/{{id}}">View Profile</a></li>
                                 {{else}}
                                 <li><a class="dropdown-item" href="/admin/viewAccount/{{id}}">View Profile</a></li>
+                                <li><a class="dropdown-item" href="/dairy/calander/{{id}}">View Diaries</a></li>
                                 {{#if active}}
-                                <li><a class="dropdown-item text-danger" href="/admin/deactivateAccount/{{id}}"
+                                {{!-- <li><a class="dropdown-item text-danger" href="/admin/deactivateAccount/{{id}}"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#deactivateAccountBackdrop_{{id}}">Deactivate Account</a></li>
+                                        data-bs-target="#deactivateAccountBackdrop_{{id}}">Deactivate Account</a></li> --}}
                                 {{else}}
                                 <li><a class="dropdown-item text-success" href="/admin/activateAccount/{{id}}">Activate Account</a></li>
                                 {{/if}}
