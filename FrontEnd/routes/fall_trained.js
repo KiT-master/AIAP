@@ -142,8 +142,8 @@ async function predictImage(imagePath) {
 }
 
 router.get('/', (req, res) => {
-    res.sendFile(__dirname + '/static/index.html');
-});
+    res.render('./fall/trained_home')
+})
 
 router.use(express.static('static'));
 

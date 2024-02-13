@@ -101,6 +101,8 @@ const userRoute = require('./routes/user');
 const medsRoute = require('./routes/medication');
 const patientManagmentRoute = require('./routes/patitensMangement');
 const adminRoute = require('./routes/admin')
+const fallRoute1 = require('./routes/fall_logic');
+const fallRoute2 = require('./routes/fall_trained');
 
 // Any URL with the pattern ‘/*’ is directed to routes/main.js
 app.use('/', mainRoute);
@@ -109,6 +111,8 @@ app.use('/user', userRoute);
 app.use('/medication', medsRoute)
 app.use('/patients', patientManagmentRoute);
 app.use('/admin',adminRoute)
+app.use('/fall',fallRoute1)
+app.use('/fall2',fallRoute2)
 
 // The 404 Route
 app.use(function (req, res, next) {
