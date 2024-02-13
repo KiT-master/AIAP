@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="/css/diary/diary.css">
+<div class="row mx-auto row-diary">
+
+	
+	<div class="container home col">
+		<form method="post" action="http://localhost:3000/dairy/update/{{currentDiary.id}}" name="dairyForm" id="dairyForm" enctype="application/json" class="form-group">
+			<h3>Date:{{currentDate}}</h3>
+            <h3>Title:{{currentDiary.DiaryTitle}}</h3>
+			<input type="hidden" name="title" value="{{currentDiary.DiaryTitle}}">
+            <input name="did" type="hidden" value="{{currentDiary.id}}">
+			<input name="uid" type="hidden" value="{{user.id}}">
+			<textarea name="Message" class="MessageBox form-control" required>{{currentDiary.DiaryContent}} </textarea>
+			<br>
+            <input class="btn btn-main" type="submit" value="update">
+		</form>
+	</div> 
+
+		<div class="list-group diary-sidebar col pl-10">
+		<h3>Events:</h3>
+		{{#each diaries}}
+			<a href="/dairy/view/{{../user.id}}/{{id}}" class="list-group-item list-group-item-action flex-column align-items-start py-0">
+				<div class="row">
+					<div class="d-flex col col-2 border border-black px-0">
+					<p class="mb-1 text-justify text-center">{{DiaryDate}}</p>
+					</div>
+					<div class="col-6">
+						<p class="mb-1">{{DiaryTitle}}</p>
+					</div>
+				</div>
+			</a>
+		{{/each}}
+
+	</div>
+
+
+</div>
+<script>
+
+</script>

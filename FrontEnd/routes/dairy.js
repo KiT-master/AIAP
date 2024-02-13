@@ -95,13 +95,15 @@ router.get('/calander/:uid', ensureAuthenticated, async function (req, res,) {
 
 router.get('/write/:uid', ensureAuthenticated, async function (req, res,) {
     let diaries = await Diary.findAll({ raw: true, where: { userId: req.params.uid } })
-    let currentDate = date.getDate() + " " + 1 + " "+date.getFullYear();
+    let currentDate = date.getDate() + " " + months[date.getMonth()] + " "+date.getFullYear();
 
-    let currentDiary = await Diary.findOne({ raw: true, where: { userId: req.params.uid, DiaryDate:(date.getMonth() + 1) +"-"+ 1 +"-"+date.getFullYear()}})
+    let currentDiary = await diaries[diaries.length - 1] //Diary.findOne({ raw: true, where: { userId: req.params.uid, DiaryDate:(date.getMonth() + 1) +"-"+ 1 +"-"+date.getFullYear()}})
     diaries = diaryConvert(diaries)
 
-    if (currentDiary) {
-        res.render('./dairy/calandear', {currentDate,diaries,currentDiary});
+    console.log(currentDiary)
+
+    if (currentDiary != undefined) {
+        res.render('./dairy/updateDiary', {currentDate,currentDiary:currentDiary,diaries});
     }
     else{
         res.render('./dairy/dairy', {currentDate,diaries});
@@ -154,6 +156,43 @@ router.post('/write/:uid', ensureAuthenticated, async function (req, res,) {
         })
       });
 
+});
+
+
+
+router.post('/update/:did', ensureAuthenticated, async function (req, res,) {
+    const body = req.body;
+    let did = req.params.did;
+    let uid = req.body.uid;
+    let diaries = await Diary.findAll({ raw: true, where: { userId: uid } })
+
+    diaries = diaryConvert(diaries)
+
+    const response = await fetch("http://127.0.0.1:5000", {
+        method: 'POST',
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body),
+    });
+
+    response.json().then(async(data) => {
+
+    Sentiment = data.label;
+    let DiaryDate = (date.getMonth() + 1) +"-"+ date.getDate() +"-"+date.getFullYear();
+    let DiaryTitle = body.title;
+    let DiarySentiment = Sentiment;
+    let DiaryContent = body.Message;
+
+    await Diary.update({
+        DiaryTitle: DiaryTitle, DiarySentiment: DiarySentiment, DiaryContent: DiaryContent, DiaryDate: DiaryDate, userId: uid
+        },
+            { where: { id: parseInt(did)} }
+    ).then(() =>{
+        res.render('./dairy/dairy_response', {DiaryDate:DiaryDate,DiaryContent:DiaryContent,DiarySentiment:DiarySentiment,diaries:diaries});
+    })
+    })
 });
 
 

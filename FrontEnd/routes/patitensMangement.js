@@ -68,7 +68,7 @@ router.post('/addAccounts', async (req, res) => {
     });
 
 
-    res.redirect('patients/manageAccounts/')
+    res.redirect('/patients/manageAccounts/' + uid)
 });
 
 
