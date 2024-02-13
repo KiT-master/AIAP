@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const bodyParser = require('body-parser');
-const cv = require('opencv4nodejs');
+const cv = require('./opencv.js');
 const fs = require('fs');
 
 
