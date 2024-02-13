@@ -33,6 +33,12 @@ router.get('/addAccounts', async (req, res) => {
     res.render('./patientAccounts/addAccounts')
 });
 
+
+router.get('/graph', async (req, res) => {
+    let title = "Manage Account";
+    res.render('./patientAccounts/charts')
+});
+
 router.post('/addAccounts', async (req, res) => {
     const body = req.body;
     let title = "Manage Account";
