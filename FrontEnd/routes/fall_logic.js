@@ -1,10 +1,10 @@
 const express = require('express');
+const router = express.Router();
+
 const bodyParser = require('body-parser');
 const cv = require('opencv4nodejs');
 const fs = require('fs');
 
-const app = express();
-const PORT = 5000;
 
 const net = new cv.Net();
 const inWidth = 368;
@@ -90,14 +90,14 @@ const poseEstimation = (frame) => {
 
 let fallDetectionResult = false;
 
-app.use(bodyParser.json());
-app.use(express.static('static'));
+router.use(bodyParser.json());
+router.use(express.static('static'));
 
 router.get('/', (req, res) => {
     res.render('./fall/logic_home')
 })
 
-app.post('/upload', (req, res) => {
+router.post('/upload', (req, res) => {
     try {
         const image = req.body.content;
         fs.writeFileSync('in.png', image, 'base64');
@@ -120,14 +120,12 @@ app.post('/upload', (req, res) => {
     }
 });
 
-app.get('/get_fall_detection_result', (req, res) => {
+router.get('/get_fall_detection_result', (req, res) => {
     res.send(fallDetectionResult.toString());
 });
 
-app.get('/get', (req, res) => {
+router.get('/get', (req, res) => {
     res.sendFile('out.png', { root: __dirname });
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+module.exports = router;
