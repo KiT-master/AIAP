@@ -77,6 +77,22 @@
             </li>
 
             {{/ifCond}}
+            {{#ifCond user.roleId 2 }}
+            <div class="sidebar-hidden sidebar-subtext">Caregiver</div>
+            <li id="fall/logic_home" class="nav-item">
+                <a class="nav-link" href="/fall/logic_home">
+                    <span class="nav-icon material-symbols-rounded">Fall Detection</span>
+                    <div class="sidebar-hidden">Fall Detection</div>
+                </a>
+            </li>
+            <li id="fall/trained_home" class="nav-item">
+                <a class="nav-link" href="/fall/trained_home">
+                    <span class="nav-icon material-symbols-rounded">Fall Detection</span>
+                    <div class="sidebar-hidden">Fall Detection</div>
+                </a>
+            </li>
+
+            {{/ifCond}}
             {{/if}}
             {{/if}}
         </ul>
