@@ -25,52 +25,17 @@
 		</div>
 	</div>
 
-	<h1 class="heading">Categories</h1>
-	<div class="cat d-flex flex-row mb-5">
-		<button id="scrollLeftCat" class="btn btn-arrow"><i class="fa-solid fa-angle-left"></i></button>
-		<div id="category" class="media-scroller snaps-inline">
-			{{!-- {{#each subjectList}}
-			<a href="/category/{{id}}" role="button" class="btn btn-cat">{{title}}</i></a>
-			{{/each}} --}}
-		</div>
-		<button id="scrollRightCat" class="btn btn-arrow"><i class="fa-solid fa-angle-right"></i></i></button>
-	</div>
 
-
-	<h1 class="heading">New Release</h1>
+	<h1 class="heading">Gong Xi Fa Cai</h1>
 	<div class="new d-flex flex-row mb-5">
-
+		<img class="mx-auto orange-img" src="./img/kisspng-mandarin-orange-tangerine-orange-juice-clip-art-orange-fruit-5ac86ad9d28078.1897366815230839938622.png" alt="">
 	</div> 
+		<p>May everybody have a prosperous chinese new year! But even
+		in the new year dementia patients are still suffering forgeting thier loved ones in this festive season</p>
+		<p>This is why demntia diaries are here to help! we aim to relive the stress on caretakers with the use of diary and AI!</p>
 
-	{{!-- {{#if user}}
-	<h1 class="heading">Recommended For You</h1>
-	<div class="recommendations d-flex flex-row mb-5">
-		{{#ifMore recommended.length 4 }}
-		<button id="scrollLeftRec" class="btn btn-arrow"><i class="fa-solid fa-angle-left"></i></button>
-		{{/ifMore}}
-		<div id="recommended" class="media-scroller snaps-inline">
-			{{#each recommended}}
-			<a class="card-link" href="/course/details/{{id}}">
-				<div class="card" style="width: 18rem;">
-					<img src="{{imgURL}}" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title m-0">{{courseName}}</h5>
-						<p class="username text-primary">
-							@{{lookup ../userdict userId}}
-						</p>
-						<p class="tag subtext">
-							tag: <span><b></b> {{subjects.[0].title}}</span>
-						</p>
-					</div>
-				</div>
-			</a>
-			{{/each}}
-		</div>
-		{{#ifMore recommended.length 4 }}
-		<button id="scrollRightRec" class="btn btn-arrow"><i class="fa-solid fa-angle-right"></i></i></button>
-		{{/ifMore}}
-	</div>
-	{{/if}} --}}
+
+
 </div> 
 
 <script>

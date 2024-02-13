@@ -177,7 +177,7 @@ router.post('/signup', async function (req, res) {
                 interest,
                 status: undefined,
                 active: 1,
-                roleId: 2 // Student
+                roleId: 2 // Caretaker
             });
 
             // Send email
@@ -227,7 +227,7 @@ router.get('/profile/:id', ensureAuthenticated, authUser, authActive, async (req
 
 // router.get('/profileView/:id', authActive, async (req, res) => {
 //     let title = "My Profile"
-//     let country = countryList.getData();
+//     let country = countryList.getData();ignup
 //     let user = await User.findByPk(req.params.id, { include: Role });
 //     res.render('./user/profile', { title, country, user });
 // });
