@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-const cv = require('opencv4nodejs');
+const cv = require('./opencv.js');
 const tf = require('@tensorflow/tfjs');
 const { loadGraphModel } = require('@tensorflow/tfjs-converter');
 const { createCanvas, Image } = require('canvas');
