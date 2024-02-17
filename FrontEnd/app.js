@@ -32,7 +32,7 @@ app.set('view engine', 'handlebars');
 app.use(express.urlencoded({
 	extended: false
 }));
-app.use(express.json());
+app.use(express.json({limit: '100mb'}));
 
 // Creates static folder for publicly accessible HTML, CSS and Javascript files
 app.use(express.static(path.join(__dirname, 'public')));

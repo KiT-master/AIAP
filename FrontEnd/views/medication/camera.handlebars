@@ -1,22 +1,53 @@
 <div class="admin container">
     <div class="entry-card">
-            <video id="webcam" autoplay></video>
-        <button id="captureButton">Capture Image</button>
-        <canvas id="canvas" style="display: none;"></canvas>
+        <video id="video" width="640" height="480" autoplay></video>
+        <button id="snap">Snap Photo</button>
+        <canvas id="canvas" width="640" height="480"></canvas>
+        <p id="prediction"></p>
     </div>
 </div>
 
-
 <script>
-    const video = document.getElementById('webcam');
+    // Elements for taking the snapshot
+    var video = document.getElementById('video');
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    var snap = document.getElementById('snap');
 
-    // Access the user camera and video
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then((stream) => {
+    // Get access to the camera
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
             video.srcObject = stream;
-        })
-        .catch((error) => {
-            console.error('Error accessing webcam:', error);
+            video.play();
         });
+    }
+
+    // Trigger photo take
+    snap.addEventListener("click", function() {
+        context.drawImage(video, 0, 0, 640, 480);
+        var imgData = canvas.toDataURL('image/png');
+        // Send this imgData to server to save as file
+        fetch('/medication/save-image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ img: imgData })
+        }).then(response => {
+            console.log('Image saved');
+            // After saving the image, send it to the Flask server for prediction
+            fetch('http://127.0.0.1:5000/predictmeds', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ file_url: './public/uploads/medication.png' })
+            }).then(response => response.json())
+            .then(data => {
+                console.log('Prediction:', data);
+                document.getElementById('prediction').textContent = 'Prediction: ' + data;
+            });
+        });
+    });
 </script>
-<script src="medication.js"></script>
+<script src="capture.js"></script>
